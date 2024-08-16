@@ -131,6 +131,13 @@ function mainLoop()
     for(let i = 0; i < enemies.length; i++)
     {
         enemies[i].update();
+
+        let xDist = player.posX - enemies[i].sprite.posX;
+        let yDist = player.posY - enemies[i].sprite.posY;
+        let total = Math.abs(yDist) + Math.abs(xDist);
+        
+        enemies[i].sprite.xSpeed = (xDist/Math.abs(total)) * 5;
+        enemies[i].sprite.ySpeed = (yDist/Math.abs(total)) * 5;
     }
 
     window.requestAnimationFrame(mainLoop);
