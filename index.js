@@ -124,6 +124,25 @@ class Enemy
     }
 }
 
+// TEXT CLASS
+class TextSprite
+{
+    constructor(text, size, posX, posY)
+    {
+        this.text = text;
+        this.size = size;
+        this.posX = posX;
+        this.posY = posY;
+    }
+    
+    draw()
+    {
+        c.fillStyle = 'white';
+        c.font = this.size + ' Arial';
+        c.fillText(this.text, this.posX, this.posY);
+    }
+}
+
 // Removes an object with a given name from an array
 function destroyObject(array, objectName)
 {
@@ -183,6 +202,12 @@ function scroll(distanceX, distanceY)
         bullets[i].posY += distanceY;
     }
 
+    for(let i = 0; i < text.length; i++)
+    {
+        text[i].posX += distanceX;
+        text[i].posY += distanceY;
+    }
+
     player.posX += distanceX;
     player.posY += distanceY;
 
@@ -202,16 +227,22 @@ let wall = new Sprite(400, 0, 250, 40, 0, 0);
 
 let wall2 = new Sprite(200, 0, 250, 40, 0, 0);
 
+let text101 = new TextSprite('WASD to move.', '40px', 100, 100);
+
 let enemies = [enemy];
 let walls = [wall];
+let text = [text101];
 
 class Level
 {
-    constructor(name, enemyArray , wallArray, playerPosition, goalPosition)
+    constructor(name, enemyArray , wallArray, textArray, playerPosition, goalPosition)
     {
         this.name = name;
+
         this.wallArray = wallArray;
         this.enemyArray = enemyArray;
+        this.textArray = textArray;
+
         this.playerPosition = playerPosition;
         this.goalPosition = goalPosition;
     }
@@ -220,6 +251,7 @@ class Level
     {
         walls = this.wallArray;
         enemies = this.enemyArray;
+        text = this.textArray;
 
         for(let i = 0; i < walls.length; i++)
         {
@@ -240,8 +272,8 @@ class Level
 }
 
 // LEVELS
-let level1 = new Level('level 1', [enemy], [wall], {x: 0, y: 0}, {x: 200, y: -100});
-let level2 = new Level('level 2', [enemy2], [wall2], {x: 0, y: 0}, {x: 200, y: 0});
+let level1 = new Level('level 1', [enemy], [wall], [text101], {x: 0, y: 0}, {x: 200, y: -100});
+let level2 = new Level('level 2', [enemy2], [wall2], [], {x: 0, y: 0}, {x: 200, y: 0});
 
 let levels = [level1, level2];
 
@@ -393,6 +425,11 @@ function mainLoop()
                 theEnemy.ySpeed = 0;
             }
         }
+    }
+
+    for(let i = 0; i < text.length; i++)
+    {
+        text[i].draw();
     }
 
     if(player.posX < 225 + 17)
