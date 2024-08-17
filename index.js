@@ -215,22 +215,22 @@ function scroll(distanceX, distanceY)
     goal.posY += distanceY;
 }
 
-let player = new Sprite(0, 0, 35, 35, 0, 0);
+let player = new Sprite(250, 200, 35, 35, 0, 0);
 
 let goal = new Sprite(200, 0, 80, 80, 0, 0);
 
-let enemy = new Enemy(340, 280, 35, 35, 2, 2, null, 'enemy1');
-
 let enemy2 = new Enemy(440, 280, 35, 35, 2, 2, null, 'enemy2');
 
-let wall = new Sprite(400, 0, 250, 40, 0, 0);
+let wall101 = new Sprite(400, 0, 250, 40, 0, 0);
+let wall102 = new Sprite(610, 0, 40, 250, 0, 0);
+let wall103 = new Sprite(610, 250, 40, 250, 0, 0);
 
 let wall2 = new Sprite(200, 0, 250, 40, 0, 0);
 
 let text101 = new TextSprite('WASD to move.', '40px', 100, 100);
 
-let enemies = [enemy];
-let walls = [wall];
+let enemies = [];
+let walls = [wall101];
 let text = [text101];
 
 class Level
@@ -274,7 +274,7 @@ class Level
 // LEVELS
 let level = 0;
 
-let level1 = new Level('level 1', [enemy], [wall], [text101], {x: 0, y: 0}, {x: 200, y: -100});
+let level1 = new Level('level 1', [], [wall101, wall102, wall103], [text101], {x: 290, y: 200}, {x: 200, y: -100});
 let level2 = new Level('level 2', [enemy2], [wall2], [], {x: 0, y: 0}, {x: 200, y: 0});
 
 let levels = [level1, level2];
@@ -373,9 +373,9 @@ function mainLoop()
                 walls[j].height += 10;
                 walls[j].posX -= 5;
                 walls[j].posY -= 5;
-    
-                // Destroy the bullet
+                
                 destroyObject(bullets, bullets[i].name);
+                i--;
             }
         }
     }
