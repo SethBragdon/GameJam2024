@@ -102,6 +102,7 @@ class Enemy
     {
         // This allows an enemy to function as a sprite and still have addition stuff if needed
         this.sprite = new Sprite(posX, posY, width, height, xSpeed, ySpeed, image, name, type);
+        this.name = name;
     }
 
     draw()
@@ -154,7 +155,7 @@ function shoot(modifier = 1)
 
 let player = new Sprite(0, 0, 35, 35, 0, 0);
 
-let enemy = new Enemy(0, 90, 35, 35, 2, 2);
+let enemy = new Enemy(0, 90, 35, 35, 2, 2, null, 'enemy1');
 
 let enemies = [enemy];
 
@@ -202,6 +203,21 @@ function mainLoop()
     for(let i = 0; i < bullets.length; i++)
     {
         bullets[i].update();
+
+        for(let j = 0; j < enemies.length; j++)
+        {
+            let theEnemy = enemies[j].sprite;
+
+            if(rectangularCollision(bullets[i].posX, theEnemy.posX, bullets[i].posY, theEnemy.posY, bullets[i].width, theEnemy.width, bullets[i].height, theEnemy.height))
+            {
+                theEnemy.width += 10;
+                theEnemy.height += 10;
+                theEnemy.posX -= 5;
+                theEnemy.posY -= 5;
+
+                destroyObject(bullets, bullets[i].name);
+            }
+        }
     }
 
     // CONTROLLS
