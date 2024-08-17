@@ -116,6 +116,7 @@ class Enemy
         this.name = name;
         this.maxSpeed = 3;
         this.slow = .2;
+        this.active = false;
     }
 
     draw()
@@ -169,6 +170,11 @@ function destroyObject(array, objectName)
             i--;
         }
     }
+}
+
+function isDistance(sprite1, sprite2, x, y)
+{
+    return Math.abs((sprite1.posX + sprite1.width/2) - (sprite2.posX + sprite2.width/2)) <= x && Math.abs((sprite1.posY + sprite1.height) - (sprite2.posY + sprite2.height)) <= y;
 }
 
 // This function returns a boolean value for if two Sprites are colliding
@@ -234,7 +240,7 @@ let player = new Sprite(250, 200, 35, 35, 0, 0);
 
 let goal = new Sprite(200, 0, 80, 80, 0, 0);
 
-let enemy2 = new Enemy(440, 280, 35, 35, 2, 2, null, 'enemy2');
+let enemy201 = new Enemy(90, -400, 35, 35, 2, 2, null, 'enemy201');
 
 let wall101 = new Sprite(400, 0, 250, 40, 0, 0);
 let wall102 = new Sprite(610, 0, 40, 250, 0, 0);
@@ -249,11 +255,29 @@ let wall1010 = new Sprite(0, -500, 250, 40, 0, 0);
 let wall1011 = new Sprite(0, -500, 40, 250, 0, 0);
 let wall1012 = new Sprite(0, -250, 40, 250, 0, 0);
 
-let wall2 = new Sprite(200, 0, 250, 40, 0, 0);
+let wall201 = new Sprite(610, 0, 40, 250, 0, 0);
+let wall202 = new Sprite(610, 250, 40, 250, 0, 0);
+let wall203 = new Sprite(0, 0, 40, 250, 0, 0);
+let wall204 = new Sprite(0, 250, 40, 250, 0, 0);
+let wall205 = new Sprite(400, -500, 250, 40, 0, 0);
+let wall206 = new Sprite(610, -500, 40, 250, 0, 0);
+let wall207 = new Sprite(610, -250, 40, 250, 0, 0);
+let wall208 = new Sprite(0, -500, 250, 40, 0, 0);
+let wall209 = new Sprite(0, -500, 40, 250, 0, 0);
+let wall2010 = new Sprite(0, -250, 40, 250, 0, 0);
+let wall2011 = new Sprite(400, -1000, 250, 40, 0, 0);
+let wall2012 = new Sprite(610, -1000, 40, 250, 0, 0);
+let wall2013 = new Sprite(610, -750, 40, 250, 0, 0);
+let wall2014 = new Sprite(0, -1000, 250, 40, 0, 0);
+let wall2015 = new Sprite(0, -1000, 40, 250, 0, 0);
+let wall2016 = new Sprite(0, -750, 40, 250, 0, 0);
 
 let text101 = new TextSprite('WASD to move.', '30px', 220, 100);
 let text102 = new TextSprite('J: shoot forwards. K: shoot backwards.', '30px', 60, -100);
 let text103 = new TextSprite('Climb those stairs.', '30px', 195, -380);
+
+let text201 = new TextSprite('Enemy ahead! Shoot it (J & K) to enlarge', '30px', 60, 100);
+let text202 = new TextSprite('it and slow it down.', '30px', 60, 140);
 
 let enemies = [];
 let walls = [wall101];
@@ -287,6 +311,7 @@ class Level
         for(let i = 0; i < enemies.length; i++)
         {
             enemies[i].sprite.resetSprite();
+            enemies[i].active = false;
         }
 
         for(let i = 0; i < text.length; i++)
@@ -306,7 +331,7 @@ class Level
 let level = 0;
 
 let level1 = new Level('level 1', [], [wall101, wall102, wall103, wall104, wall105, wall106, wall107, wall108, wall109, wall1010, wall1011, wall1012], [text101, text102, text103], {x: 290, y: 200}, {x: 290, y: -500});
-let level2 = new Level('level 2', [enemy2], [wall2], [], {x: 0, y: 0}, {x: 200, y: 0});
+let level2 = new Level('level 2', [enemy201], [wall201, wall202, wall203, wall204, wall205, wall206, wall207, wall208, wall209, wall2010, wall2011, wall2012, wall2013, wall2014, wall2015, wall2016], [text201, text202], {x: 290, y: 200}, {x: 290, y: -1000});
 
 let levels = [level1, level2];
 
@@ -335,7 +360,11 @@ function mainLoop()
     if(rectangularCollision(player.posX, goal.posX, player.posY, goal.posY, player.width, goal.width, player.height, goal.height))
     {
         level++;
-        levels[level].load();
+
+        if(level < levels.length)
+        {
+            levels[level].load();
+        }
     }
 
     // UPDATE ENEMIES
@@ -345,14 +374,22 @@ function mainLoop()
 
         let theEnemy = enemies[i].sprite;
 
-        // Calculate enemy movement
-        let xDist = (player.posX + player.width/2)  - (theEnemy.posX + theEnemy.width/2);
-        let yDist = (player.posY + player.height/2) - (theEnemy.posY + theEnemy.height/2);
-        let total = Math.abs(yDist) + Math.abs(xDist);
+        if(enemies[i].active)
+        {
+            // Calculate enemy movement
+            let xDist = (player.posX + player.width/2)  - (theEnemy.posX + theEnemy.width/2);
+            let yDist = (player.posY + player.height/2) - (theEnemy.posY + theEnemy.height/2);
+            let total = Math.abs(yDist) + Math.abs(xDist);
         
-        // Execute enemy movement
-        theEnemy.xSpeed = (xDist/Math.abs(total)) * (2.8 - enemies[i].slow);
-        theEnemy.ySpeed = (yDist/Math.abs(total)) * (2.8 - enemies[i].slow);
+            // Execute enemy movement
+            theEnemy.xSpeed = (xDist/Math.abs(total)) * (2.8 - enemies[i].slow);
+            theEnemy.ySpeed = (yDist/Math.abs(total)) * (2.8 - enemies[i].slow);
+        }
+
+        if(isDistance(player, theEnemy, 350, 350))
+        {
+            enemies[i].active = true;
+        }
 
         if(rectangularCollision(player.posX, theEnemy.posX, player.posY, theEnemy.posY, player.width, theEnemy.width, player.height, theEnemy.height))
         {
@@ -383,9 +420,9 @@ function mainLoop()
                 theEnemy.posY -= 5;
 
                 // Decrease the enemies speed
-                if(enemies[j].slow + .2 <= 1.4)
+                if(enemies[j].slow + .4 <= 1.8)
                 {
-                    enemies[j].slow += .2;
+                    enemies[j].slow += .4;
                 }
 
                 // Destroy the bullet
