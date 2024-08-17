@@ -272,12 +272,14 @@ class Level
 }
 
 // LEVELS
+let level = 0;
+
 let level1 = new Level('level 1', [enemy], [wall], [text101], {x: 0, y: 0}, {x: 200, y: -100});
 let level2 = new Level('level 2', [enemy2], [wall2], [], {x: 0, y: 0}, {x: 200, y: 0});
 
 let levels = [level1, level2];
 
-levels[0].load();
+levels[level].load();
 
 // Variable/object to track key usage
 let keys = {
@@ -301,7 +303,8 @@ function mainLoop()
 
     if(rectangularCollision(player.posX, goal.posX, player.posY, goal.posY, player.width, goal.width, player.height, goal.height))
     {
-        levels[1].load();
+        level++;
+        levels[level].load();
     }
 
     // UPDATE ENEMIES
@@ -323,9 +326,10 @@ function mainLoop()
         if(rectangularCollision(player.posX, theEnemy.posX, player.posY, theEnemy.posY, player.width, theEnemy.width, player.height, theEnemy.height))
         {
             // Code to be triggered when the enemy hits the player
-            player.resetSprite();
+            /*player.resetSprite();
             enemy.sprite.resetSprite();
-            wall.resetSprite();
+            wall.resetSprite();*/
+            levels[level].load();
         }
     }
 
