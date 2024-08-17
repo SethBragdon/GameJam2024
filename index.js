@@ -163,6 +163,30 @@ function shoot(modifier = 1)
     window.setTimeout(() => {destroyObject(bullets, bullet.name);}, 500);
 }
 
+function scroll(distanceX, distanceY)
+{
+    for(let i = 0; i < enemies.length; i++)
+    {
+        enemies[i].sprite.posX += distanceX;
+        enemies[i].sprite.posY += distanceY;
+    }
+
+    for(let i = 0; i < walls.length; i++)
+    {
+        walls[i].posX += distanceX;
+        walls[i].posY += distanceY;
+    }
+
+    for(let i = 0; i < bullets.length; i++)
+    {
+        bullets[i].posX += distanceX;
+        bullets[i].posY += distanceY;
+    }
+
+    player.posX += distanceX;
+    player.posY += distanceY;
+}
+
 let player = new Sprite(0, 0, 35, 35, 0, 0);
 
 let enemy = new Enemy(340, 280, 35, 35, 2, 2, null, 'enemy1');
@@ -211,6 +235,7 @@ function mainLoop()
             // Code to be triggered when the enemy hits the player
             player.resetSprite();
             enemy.sprite.resetSprite();
+            wall.resetSprite();
         }
     }
 
@@ -310,6 +335,15 @@ function mainLoop()
                 theEnemy.ySpeed = 0;
             }
         }
+    }
+
+    if(player.posX < 225 + 17)
+    {
+        scroll(3, 0);   
+    }
+    else if(player.posX > 425 - 17)
+    {
+        scroll(-3, 0);
     }
 
     window.requestAnimationFrame(mainLoop);
