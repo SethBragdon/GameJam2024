@@ -359,10 +359,9 @@ function mainLoop()
 
     if(rectangularCollision(player.posX, goal.posX, player.posY, goal.posY, player.width, goal.width, player.height, goal.height))
     {
-        level++;
-
-        if(level < levels.length)
+        if(level + 1 < levels.length)
         {
+            level++;
             levels[level].load();
         }
     }
