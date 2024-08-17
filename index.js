@@ -185,16 +185,67 @@ function scroll(distanceX, distanceY)
 
     player.posX += distanceX;
     player.posY += distanceY;
+
+    goal.posX += distanceX;
+    goal.posY += distanceY;
 }
 
 let player = new Sprite(0, 0, 35, 35, 0, 0);
 
+let goal = new Sprite(200, 0, 80, 80, 0, 0);
+
 let enemy = new Enemy(340, 280, 35, 35, 2, 2, null, 'enemy1');
+
+let enemy2 = new Enemy(440, 280, 35, 35, 2, 2, null, 'enemy2');
 
 let wall = new Sprite(400, 0, 250, 40, 0, 0);
 
+let wall2 = new Sprite(200, 0, 250, 40, 0, 0);
+
 let enemies = [enemy];
 let walls = [wall];
+
+class Level
+{
+    constructor(name, enemyArray , wallArray, playerPosition, goalPosition)
+    {
+        this.name = name;
+        this.wallArray = wallArray;
+        this.enemyArray = enemyArray;
+        this.playerPosition = playerPosition;
+        this.goalPosition = goalPosition;
+    }
+
+    load()
+    {
+        walls = this.wallArray;
+        enemies = this.enemyArray;
+
+        for(let i = 0; i < walls.length; i++)
+        {
+            walls[i].resetSprite();
+        }
+
+        for(let i = 0; i < enemies.length; i++)
+        {
+            enemies[i].sprite.resetSprite();
+        }
+
+        player.posX = this.playerPosition.x;
+        player.posY = this.playerPosition.y;
+        
+        goal.posX = this.goalPosition.x;
+        goal.posY = this.goalPosition.y;
+    }
+}
+
+// LEVELS
+let level1 = new Level('level 1', [enemy], [wall], {x: 0, y: 0}, {x: 200, y: -100});
+let level2 = new Level('level 2', [enemy2], [wall2], {x: 0, y: 0}, {x: 200, y: 0});
+
+let levels = [level1, level2];
+
+levels[0].load();
 
 // Variable/object to track key usage
 let keys = {
@@ -213,6 +264,13 @@ function mainLoop()
     c.fillRect(0, 0, canvas.width, canvas.height);
 
     player.update();
+
+    goal.update();
+
+    if(rectangularCollision(player.posX, goal.posX, player.posY, goal.posY, player.width, goal.width, player.height, goal.height))
+    {
+        levels[1].load();
+    }
 
     // UPDATE ENEMIES
     for(let i = 0; i < enemies.length; i++)
@@ -344,6 +402,15 @@ function mainLoop()
     else if(player.posX > 425 - 17)
     {
         scroll(-3, 0);
+    }
+
+    if(player.posY < 188 + 17)
+    {
+        scroll(0, 3);   
+    }
+    else if(player.posY > 388 - 17)
+    {
+        scroll(0, -3);
     }
 
     window.requestAnimationFrame(mainLoop);
