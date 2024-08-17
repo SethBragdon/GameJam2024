@@ -115,6 +115,18 @@ class Enemy
     }
 }
 
+// Removes an object with a given name from an array
+function destroyObject(array, objectName)
+{
+    for(let i = 0; i < array.length; i++)
+    {
+        if(array[i].name == objectName)
+        {
+            array.splice(i, 1);
+        }
+    }
+}
+
 // This function returns a boolean value for if two Sprites are colliding
 function rectangularCollision(posX1, posX2, posY1, posY2, width1, width2, height1, height2)
 {
@@ -127,12 +139,17 @@ function rectangularCollision(posX1, posX2, posY1, posY2, width1, width2, height
 let bullets = [];
 let lastDirectionX = 0;
 let lastDirectionY = 0;
+let bulletCount = 0;
 
 // This function shoots a bullet from the player
-function shoot()
+function shoot(modifier = 1)
 {
-    let bullet = new Sprite(player.posX, player.posY, 20, 20, lastDirectionX * 2, lastDirectionY * 2);
+    bulletCount++;
+    let bullet = new Sprite(player.posX + player.width/2 - 10, player.posY + player.height/2 - 10, 20, 20, lastDirectionX * 2 * modifier, lastDirectionY * 2 * modifier, null, 'bullet' + bulletCount);
     bullets.push(bullet);
+
+    // Destroy the bullet after .5 seconds so it doesn't lag the game
+    window.setTimeout(() => {destroyObject(bullets, bullet.name);}, 500);
 }
 
 let player = new Sprite(0, 0, 35, 35, 0, 0);
@@ -261,6 +278,10 @@ window.addEventListener('keydown', (event) =>
         
         case 'j':
             shoot();
+            break;
+        
+        case 'k':
+            shoot(-1);
             break;
     }
 }
