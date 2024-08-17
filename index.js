@@ -359,6 +359,23 @@ function mainLoop()
 
                 // Destroy the bullet
                 destroyObject(bullets, bullets[i].name);
+                i--;
+            }
+        }
+
+        for(let j = 0; j < walls.length; j++)
+        {
+            // If the wall collides with a bullet...
+            if(/* DON'T TOUCH THIS PART, YOU MAY DESTROY THE GAME*/i >= 0 && rectangularCollision(bullets[i].posX, walls[j].posX, bullets[i].posY, walls[j].posY, bullets[i].width, walls[j].width, bullets[i].height, walls[j].height))
+            {
+                // Increase the wall's size
+                walls[j].width += 10;
+                walls[j].height += 10;
+                walls[j].posX -= 5;
+                walls[j].posY -= 5;
+    
+                // Destroy the bullet
+                destroyObject(bullets, bullets[i].name);
             }
         }
     }
