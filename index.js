@@ -155,7 +155,7 @@ function shoot(modifier = 1)
 
 let player = new Sprite(0, 0, 35, 35, 0, 0);
 
-let enemy = new Enemy(0, 90, 35, 35, 2, 2, null, 'enemy1');
+let enemy = new Enemy(340, 280, 35, 35, 2, 2, null, 'enemy1');
 
 let enemies = [enemy];
 
