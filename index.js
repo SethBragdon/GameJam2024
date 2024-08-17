@@ -346,8 +346,8 @@ function mainLoop()
         let theEnemy = enemies[i].sprite;
 
         // Calculate enemy movement
-        let xDist = player.posX - theEnemy.posX;
-        let yDist = player.posY - theEnemy.posY;
+        let xDist = (player.posX + player.width/2)  - (theEnemy.posX + theEnemy.width/2);
+        let yDist = (player.posY + player.height/2) - (theEnemy.posY + theEnemy.height/2);
         let total = Math.abs(yDist) + Math.abs(xDist);
         
         // Execute enemy movement
