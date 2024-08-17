@@ -24,6 +24,9 @@ class Sprite
         this.originX = posX;
         this.originY = posY;
 
+        this.originWidth = width;
+        this.originHeight = height;
+
         this.width = width;
         this.height = height;
 
@@ -97,6 +100,8 @@ class Sprite
     {
         this.posX = this.originX;
         this.posY = this.originY;
+        this.height = this.originHeight;
+        this.width = this.originWidth;
         this.xSpeed = 0;
         this.ySpeed = 0;
     }
@@ -133,6 +138,10 @@ class TextSprite
         this.size = size;
         this.posX = posX;
         this.posY = posY;
+
+        // Used for reseting position
+        this.originX = posX;
+        this.originY = posY;
     }
     
     draw()
@@ -140,6 +149,12 @@ class TextSprite
         c.fillStyle = 'white';
         c.font = this.size + ' Arial';
         c.fillText(this.text, this.posX, this.posY);
+    }
+
+    resetText()
+    {
+        this.posX = this.originX;
+        this.posY = this.originY;
     }
 }
 
@@ -224,10 +239,21 @@ let enemy2 = new Enemy(440, 280, 35, 35, 2, 2, null, 'enemy2');
 let wall101 = new Sprite(400, 0, 250, 40, 0, 0);
 let wall102 = new Sprite(610, 0, 40, 250, 0, 0);
 let wall103 = new Sprite(610, 250, 40, 250, 0, 0);
+let wall104 = new Sprite(0, 0, 250, 40, 0, 0);
+let wall105 = new Sprite(0, 0, 40, 250, 0, 0);
+let wall106 = new Sprite(0, 250, 40, 250, 0, 0);
+let wall107 = new Sprite(400, -500, 250, 40, 0, 0);
+let wall108 = new Sprite(610, -500, 40, 250, 0, 0);
+let wall109 = new Sprite(610, -250, 40, 250, 0, 0);
+let wall1010 = new Sprite(0, -500, 250, 40, 0, 0);
+let wall1011 = new Sprite(0, -500, 40, 250, 0, 0);
+let wall1012 = new Sprite(0, -250, 40, 250, 0, 0);
 
 let wall2 = new Sprite(200, 0, 250, 40, 0, 0);
 
-let text101 = new TextSprite('WASD to move.', '40px', 100, 100);
+let text101 = new TextSprite('WASD to move.', '30px', 220, 100);
+let text102 = new TextSprite('J: shoot forwards. K: shoot backwards.', '30px', 60, -100);
+let text103 = new TextSprite('Climb those stairs.', '30px', 195, -380);
 
 let enemies = [];
 let walls = [wall101];
@@ -263,6 +289,11 @@ class Level
             enemies[i].sprite.resetSprite();
         }
 
+        for(let i = 0; i < text.length; i++)
+        {
+            text[i].resetText();
+        }
+
         player.posX = this.playerPosition.x;
         player.posY = this.playerPosition.y;
         
@@ -274,7 +305,7 @@ class Level
 // LEVELS
 let level = 0;
 
-let level1 = new Level('level 1', [], [wall101, wall102, wall103], [text101], {x: 290, y: 200}, {x: 200, y: -100});
+let level1 = new Level('level 1', [], [wall101, wall102, wall103, wall104, wall105, wall106, wall107, wall108, wall109, wall1010, wall1011, wall1012], [text101, text102, text103], {x: 290, y: 200}, {x: 290, y: -500});
 let level2 = new Level('level 2', [enemy2], [wall2], [], {x: 0, y: 0}, {x: 200, y: 0});
 
 let levels = [level1, level2];
@@ -373,7 +404,7 @@ function mainLoop()
                 walls[j].height += 10;
                 walls[j].posX -= 5;
                 walls[j].posY -= 5;
-                
+
                 destroyObject(bullets, bullets[i].name);
                 i--;
             }
@@ -512,6 +543,10 @@ window.addEventListener('keydown', (event) =>
                 canShoot = false;
                 shoot(-1);
             }
+            break;
+        
+        case 'r':
+            levels[level].load();
             break;
     }
 }
