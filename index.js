@@ -1,3 +1,9 @@
+// The theme for this game is 'Built to Scale', so we have to make something that fits that theme.
+// My plan is to make a game where the player is armed with a reverse shrink ray.
+// The player has to evade monsters and reach goals by enlargening nearby objects.
+// I'm planning to add traps that can kill the enemies if they touch them and can be enlarged.
+// Other than the shrink ray, the player shouldn't have any other method of defense.
+
 let canvas = document.getElementById('canvas');
 let c = canvas. getContext('2d');
 
@@ -103,6 +109,8 @@ class Enemy
         // This allows an enemy to function as a sprite and still have addition stuff if needed
         this.sprite = new Sprite(posX, posY, width, height, xSpeed, ySpeed, image, name, type);
         this.name = name;
+        this.maxSpeed = 3;
+        this.slow = .2;
     }
 
     draw()
@@ -124,6 +132,7 @@ function destroyObject(array, objectName)
         if(array[i].name == objectName)
         {
             array.splice(i, 1);
+            i--;
         }
     }
 }
@@ -138,6 +147,7 @@ function rectangularCollision(posX1, posX2, posY1, posY2, width1, width2, height
 }
 
 let bullets = [];
+let canShoot = true;
 let lastDirectionX = 0;
 let lastDirectionY = 0;
 let bulletCount = 0;
@@ -190,12 +200,14 @@ function mainLoop()
         let total = Math.abs(yDist) + Math.abs(xDist);
         
         // Execute enemy movement
-        theEnemy.xSpeed = (xDist/Math.abs(total)) * 2.8;
-        theEnemy.ySpeed = (yDist/Math.abs(total)) * 2.8;
+        theEnemy.xSpeed = (xDist/Math.abs(total)) * (2.8 - enemies[i].slow);
+        theEnemy.ySpeed = (yDist/Math.abs(total)) * (2.8 - enemies[i].slow);
 
         if(rectangularCollision(player.posX, theEnemy.posX, player.posY, theEnemy.posY, player.width, theEnemy.width, player.height, theEnemy.height))
         {
             // Code to be triggered when the enemy hits the player
+            player.resetSprite();
+            enemy.sprite.resetSprite();
         }
     }
 
@@ -208,13 +220,22 @@ function mainLoop()
         {
             let theEnemy = enemies[j].sprite;
 
+            // If the enemy collides with a bullet...
             if(rectangularCollision(bullets[i].posX, theEnemy.posX, bullets[i].posY, theEnemy.posY, bullets[i].width, theEnemy.width, bullets[i].height, theEnemy.height))
             {
+                // Increase the enemies size
                 theEnemy.width += 10;
                 theEnemy.height += 10;
                 theEnemy.posX -= 5;
                 theEnemy.posY -= 5;
 
+                // Decrease the enemies speed
+                if(enemies[j].slow + .2 <= 1.4)
+                {
+                    enemies[j].slow += .2;
+                }
+
+                // Destroy the bullet
                 destroyObject(bullets, bullets[i].name);
             }
         }
@@ -293,11 +314,19 @@ window.addEventListener('keydown', (event) =>
             break;
         
         case 'j':
-            shoot();
+            if(canShoot)
+            {
+                canShoot = false;
+                shoot();
+            }
             break;
         
         case 'k':
-            shoot(-1);
+            if(canShoot)
+            {
+                canShoot = false;
+                shoot(-1);
+            }
             break;
     }
 }
@@ -326,6 +355,14 @@ window.addEventListener('keyup', (event) =>
             case 'd':
                 player.xSpeed = 0;
                 keys.d = false;
+                break;
+            
+            case 'j':
+                canShoot = true;
+                break;
+            
+            case 'k':
+                canShoot = true;
                 break;
         }
     }
