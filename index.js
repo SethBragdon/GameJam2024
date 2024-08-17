@@ -167,7 +167,10 @@ let player = new Sprite(0, 0, 35, 35, 0, 0);
 
 let enemy = new Enemy(340, 280, 35, 35, 2, 2, null, 'enemy1');
 
+let wall = new Sprite(400, 0, 250, 40, 0, 0);
+
 let enemies = [enemy];
+let walls = [wall];
 
 // Variable/object to track key usage
 let keys = {
@@ -283,6 +286,29 @@ function mainLoop()
         if(!keys.a || !keys.d)
         {
             lastDirectionX = 0;
+        }
+    }
+
+    // RENDER WALLS
+    for(let i = 0; i < walls.length; i++)
+    {
+        walls[i].update();
+    
+        if(rectangularCollision(player.posX + player.xSpeed, walls[i].posX, player.posY + player.ySpeed, walls[i].posY, player.width, walls[i].width, player.height, walls[i].height))
+        {
+            player.xSpeed = 0;
+            player.ySpeed = 0;
+        }
+
+        for(let j = 0; j < enemies.length; j++)
+        {
+            let theEnemy = enemies[j].sprite;
+
+            if(rectangularCollision(theEnemy.posX + theEnemy.xSpeed, walls[i].posX, theEnemy.posY + theEnemy.ySpeed, walls[i].posY, theEnemy.width, walls[i].width, theEnemy.height, walls[i].height))
+            {
+                theEnemy.xSpeed = 0;
+                theEnemy.ySpeed = 0;
+            }
         }
     }
 
