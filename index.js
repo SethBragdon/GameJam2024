@@ -254,6 +254,9 @@ let wall109 = new Sprite(610, -250, 40, 250, 0, 0);
 let wall1010 = new Sprite(0, -500, 250, 40, 0, 0);
 let wall1011 = new Sprite(0, -500, 40, 250, 0, 0);
 let wall1012 = new Sprite(0, -250, 40, 250, 0, 0);
+let wall1013 = new Sprite(0, 460, 250, 40, 0, 0);
+let wall1014 = new Sprite(400, 460, 250, 40, 0, 0);
+let wall1015 = new Sprite(250, 460, 250, 40, 0, 0);
 
 let wall201 = new Sprite(610, 0, 40, 250, 0, 0);
 let wall202 = new Sprite(610, 250, 40, 250, 0, 0);
@@ -330,7 +333,7 @@ class Level
 // LEVELS
 let level = 0;
 
-let level1 = new Level('level 1', [], [wall101, wall102, wall103, wall104, wall105, wall106, wall107, wall108, wall109, wall1010, wall1011, wall1012], [text101, text102, text103], {x: 290, y: 200}, {x: 290, y: -500});
+let level1 = new Level('level 1', [], [wall101, wall102, wall103, wall104, wall105, wall106, wall107, wall108, wall109, wall1010, wall1011, wall1012, wall1013, wall1014, wall1015], [text101, text102, text103], {x: 290, y: 200}, {x: 290, y: -500});
 let level2 = new Level('level 2', [enemy201], [wall201, wall202, wall203, wall204, wall205, wall206, wall207, wall208, wall209, wall2010, wall2011, wall2012, wall2013, wall2014, wall2015, wall2016], [text201, text202], {x: 290, y: 200}, {x: 290, y: -1000});
 
 let levels = [level1, level2];
