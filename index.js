@@ -117,6 +117,7 @@ class Enemy
         this.maxSpeed = 3;
         this.slow = .2;
         this.active = false;
+        this.alive = true;
     }
 
     draw()
@@ -187,7 +188,8 @@ function rectangularCollision(posX1, posX2, posY1, posY2, width1, width2, height
 }
 
 let bullets = [];
-let canShoot = true;
+let canShootBack = true;
+let canShootFront = true;
 let lastDirectionX = 0;
 let lastDirectionY = 0;
 let bulletCount = 0;
@@ -200,7 +202,7 @@ function shoot(modifier = 1)
     bullets.push(bullet);
 
     // Destroy the bullet after .5 seconds so it doesn't lag the game
-    window.setTimeout(() => {destroyObject(bullets, bullet.name);}, 500);
+    window.setTimeout(() => {destroyObject(bullets, bullet.name);}, 800);
 }
 
 function scroll(distanceX, distanceY)
@@ -215,6 +217,12 @@ function scroll(distanceX, distanceY)
     {
         walls[i].posX += distanceX;
         walls[i].posY += distanceY;
+    }
+
+    for(let i = 0; i < traps.length; i++)
+    {
+        traps[i].posX += distanceX;
+        traps[i].posY += distanceY;
     }
 
     for(let i = 0; i < bullets.length; i++)
@@ -241,6 +249,9 @@ let player = new Sprite(250, 200, 35, 35, 0, 0);
 let goal = new Sprite(200, 0, 80, 80, 0, 0);
 
 let enemy201 = new Enemy(90, -400, 35, 35, 2, 2, null, 'enemy201');
+
+let enemy301 = new Enemy(90, -400, 35, 35, 2, 2, null, 'enemy301');
+let enemy302 = new Enemy(470, -400, 35, 35, 2, 2, null, 'enemy302');
 
 let wall101 = new Sprite(400, 0, 250, 40, 0, 0);
 let wall102 = new Sprite(610, 0, 40, 250, 0, 0);
@@ -275,6 +286,15 @@ let wall2014 = new Sprite(0, -1000, 250, 40, 0, 0);
 let wall2015 = new Sprite(0, -1000, 40, 250, 0, 0);
 let wall2016 = new Sprite(0, -750, 40, 250, 0, 0);
 
+let trap301 = new Sprite(270, -50, 35, 35, 0, 0);
+
+let wall301 = new Sprite(610, 0, 40, 250, 0, 0);
+let wall302 = new Sprite(610, 250, 40, 250, 0, 0);
+let wall303 = new Sprite(0, 0, 40, 250, 0, 0);
+let wall304 = new Sprite(0, 250, 40, 250, 0, 0);
+let wall305 = new Sprite(0, -250, 40, 250, 0, 0);
+let wall306 = new Sprite(610, -250, 40, 250, 0, 0);
+
 let text101 = new TextSprite('WASD to move.', '30px', 220, 100);
 let text102 = new TextSprite('J: shoot forwards. K: shoot backwards.', '30px', 60, -100);
 let text103 = new TextSprite('Climb those stairs.', '30px', 195, -380);
@@ -282,19 +302,27 @@ let text103 = new TextSprite('Climb those stairs.', '30px', 195, -380);
 let text201 = new TextSprite('Enemy ahead! Shoot it (J & K) to enlarge', '30px', 60, 100);
 let text202 = new TextSprite('it and slow it down.', '30px', 60, 140);
 
+let text301 = new TextSprite('Almost anything can be enlarged...', '30px', 60, 300);
+let text302 = new TextSprite('Enlarge spikes to more easily trap', '30px', 60, 340);
+let text303 = new TextSprite('enemies, but don\'t step on them!', '30px', 60, 380);
+
 let enemies = [];
+let traps = [];
 let walls = [wall101];
 let text = [text101];
 
+let deadEnemies = [];
+
 class Level
 {
-    constructor(name, enemyArray , wallArray, textArray, playerPosition, goalPosition)
+    constructor(name, enemyArray , trapArray, wallArray, textArray, playerPosition, goalPosition)
     {
         this.name = name;
 
         this.wallArray = wallArray;
         this.enemyArray = enemyArray;
         this.textArray = textArray;
+        this.trapArray = trapArray;
 
         this.playerPosition = playerPosition;
         this.goalPosition = goalPosition;
@@ -305,6 +333,12 @@ class Level
         walls = this.wallArray;
         enemies = this.enemyArray;
         text = this.textArray;
+        traps = this.trapArray;
+
+        for(let i = 0; i < traps.length; i++)
+        {
+            traps[i].resetSprite();
+        }
 
         for(let i = 0; i < walls.length; i++)
         {
@@ -315,6 +349,7 @@ class Level
         {
             enemies[i].sprite.resetSprite();
             enemies[i].active = false;
+            enemies[i].alive = true;
         }
 
         for(let i = 0; i < text.length; i++)
@@ -333,10 +368,11 @@ class Level
 // LEVELS
 let level = 0;
 
-let level1 = new Level('level 1', [], [wall101, wall102, wall103, wall104, wall105, wall106, wall107, wall108, wall109, wall1010, wall1011, wall1012, wall1013, wall1014, wall1015], [text101, text102, text103], {x: 290, y: 200}, {x: 290, y: -500});
-let level2 = new Level('level 2', [enemy201], [wall201, wall202, wall203, wall204, wall205, wall206, wall207, wall208, wall209, wall2010, wall2011, wall2012, wall2013, wall2014, wall2015, wall2016], [text201, text202], {x: 290, y: 200}, {x: 290, y: -1000});
+let level1 = new Level('level 1', [], [], [wall101, wall102, wall103, wall104, wall105, wall106, wall107, wall108, wall109, wall1010, wall1011, wall1012, wall1013, wall1014, wall1015], [text101, text102, text103], {x: 290, y: 200}, {x: 290, y: -500});
+let level2 = new Level('level 2', [enemy201], [], [wall201, wall202, wall203, wall204, wall205, wall206, wall207, wall208, wall209, wall2010, wall2011, wall2012, wall2013, wall2014, wall2015, wall2016, wall1013, wall1014, wall1015], [text201, text202], {x: 290, y: 200}, {x: 290, y: -1000});
+let level3 = new Level('level 3', [enemy301, enemy302], [trap301], [wall301, wall302, wall303, wall304, wall305, wall306, wall1013, wall1014, wall1015], [text301, text302, text303], {x: 290, y: 200}, {x: 290, y: -1000});
 
-let levels = [level1, level2];
+let levels = [level1, level2, level3];
 
 levels[level].load();
 
@@ -369,10 +405,37 @@ function mainLoop()
         }
     }
 
+    // UPDATE TRAPS
+    for(let i = 0; i < traps.length; i++)
+    {
+        traps[i].update();
+
+        if(rectangularCollision(player.posX, traps[i].posX, player.posY, traps[i].posY, player.width, traps[i].width, player.height, traps[i].height))
+        {
+            // Code to be triggered when the trap hits the player
+            levels[level].load();
+        }
+
+        for(let j = 0; j < enemies.length; j++)
+        {
+            let theEnemy = enemies[j].sprite;
+
+            if(rectangularCollision(theEnemy.posX, traps[i].posX, theEnemy.posY, traps[i].posY, theEnemy.width, traps[i].width, theEnemy.height, traps[i].height))
+            {
+                // Code to be triggered when the trap hits the player
+                enemies[j].active = false;
+                enemies[j].alive = false;
+            }
+        }
+    }
+
     // UPDATE ENEMIES
     for(let i = 0; i < enemies.length; i++)
     {
-        enemies[i].update();
+        if(enemies[i].alive)
+        {
+            enemies[i].update();
+        }
 
         let theEnemy = enemies[i].sprite;
 
@@ -396,9 +459,6 @@ function mainLoop()
         if(rectangularCollision(player.posX, theEnemy.posX, player.posY, theEnemy.posY, player.width, theEnemy.width, player.height, theEnemy.height))
         {
             // Code to be triggered when the enemy hits the player
-            /*player.resetSprite();
-            enemy.sprite.resetSprite();
-            wall.resetSprite();*/
             levels[level].load();
         }
     }
@@ -444,6 +504,22 @@ function mainLoop()
                 walls[j].posX -= 5;
                 walls[j].posY -= 5;
 
+                destroyObject(bullets, bullets[i].name);
+                i--;
+            }
+        }
+
+        for(let j = 0; j < traps.length; j++)
+        {
+            // If the wall collides with a trap...
+            if(/* DON'T TOUCH THIS PART, YOU MAY DESTROY THE GAME*/i >= 0 && rectangularCollision(bullets[i].posX, traps[j].posX, bullets[i].posY, traps[j].posY, bullets[i].width, traps[j].width, bullets[i].height, traps[j].height))
+            {
+                // Increase the trap's size
+                traps[j].width += 10;
+                traps[j].height += 10;
+                traps[j].posX -= 5;
+                traps[j].posY -= 5;
+    
                 destroyObject(bullets, bullets[i].name);
                 i--;
             }
@@ -569,17 +645,17 @@ window.addEventListener('keydown', (event) =>
             break;
         
         case 'j':
-            if(canShoot)
+            if(canShootFront)
             {
-                canShoot = false;
+                canShootFront = false;
                 shoot();
             }
             break;
         
         case 'k':
-            if(canShoot)
+            if(canShootBack)
             {
-                canShoot = false;
+                canShootBack = false;
                 shoot(-1);
             }
             break;
@@ -617,11 +693,11 @@ window.addEventListener('keyup', (event) =>
                 break;
             
             case 'j':
-                canShoot = true;
+                canShootFront = true;
                 break;
             
             case 'k':
-                canShoot = true;
+                canShootBack = true;
                 break;
         }
     }
