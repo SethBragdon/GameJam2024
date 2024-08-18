@@ -79,6 +79,7 @@ class Sprite
         if(this.hasImage)
         {
             c.drawImage(this.image, this.posX + this.xOffset, this.posY + this.yOffset);
+            alert(this.image.height);
         }
         else
         {
@@ -478,7 +479,7 @@ function mainLoop()
                 // Increase the enemies size
                 theEnemy.width += 10;
                 theEnemy.height += 10;
-                theEnemy.posX -= 5;
+                 theEnemy.posX -= 5;
                 theEnemy.posY -= 5;
 
                 // Decrease the enemies speed
