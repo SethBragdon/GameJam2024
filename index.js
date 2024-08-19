@@ -335,6 +335,7 @@ let wall4017 = new Sprite(70, -750, 250, 40, 0, 0, 'wallSideways.png');
 let wall4018 = new Sprite(30, -750, 40, 250, 0, 0, 'wallVertical.png');
 let wall4019 = new Sprite(30, -500, 40, 250, 0, 0, 'wallVertical.png');
 
+let text100 = new TextSprite('R to reset.', '30px', 220, 140);
 let text101 = new TextSprite('WASD to move.', '30px', 220, 100);
 let text102 = new TextSprite('J: shoot forwards. K: shoot backwards.', '30px', 60, -100);
 let text103 = new TextSprite('Climb those stairs.', '30px', 195, -380);
@@ -408,7 +409,7 @@ class Level
 // LEVELS
 let level = 0;
 
-let level1 = new Level('level 1', [], [], [wall101, wall102, wall103, wall104, wall105, wall106, wall107, wall108, wall109, wall1010, wall1011, wall1012, wall1013, wall1014, wall1015], [text101, text102, text103], {x: 290, y: 200}, {x: 290, y: -500});
+let level1 = new Level('level 1', [], [], [wall101, wall102, wall103, wall104, wall105, wall106, wall107, wall108, wall109, wall1010, wall1011, wall1012, wall1013, wall1014, wall1015], [text100, text101, text102, text103], {x: 290, y: 200}, {x: 290, y: -500});
 let level2 = new Level('level 2', [enemy201], [], [wall201, wall202, wall203, wall204, wall205, wall206, wall207, wall208, wall209, wall2010, wall2011, wall2012, wall2013, wall2014, wall2015, wall2016, wall1013, wall1014, wall1015], [text201, text202], {x: 290, y: 200}, {x: 290, y: -1000});
 let level3 = new Level('level 3', [enemy301, enemy302], [trap301], [wall301, wall302, wall303, wall304, wall305, wall306, wall307, wall308, wall309, wall3010, wall1013, wall1014, wall1015], [text301, text302, text303], {x: 290, y: 200}, {x: 290, y: -500});
 let level4 = new Level('level 4', [enemy401, enemy402, enemy403, enemy404, enemy405], [trap401], [wall401, wall402, wall403, wall404, wall405, wall406, wall407, wall408, wall409, wall4010, wall4011, wall4012, wall4013, wall4014, wall4015, wall4016, wall4017, wall4018, wall4019, wall1013, wall1014, wall1015], [], {x: 290, y: 200}, {x: 290, y: -680});
