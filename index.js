@@ -409,6 +409,8 @@ let text301 = new TextSprite('Almost anything can be enlarged...', '30px', 60, 3
 let text302 = new TextSprite('Enlarge spikes to more easily trap', '30px', 60, 340);
 let text303 = new TextSprite('enemies, but don\'t step on them!', '30px', 60, 380);
 
+let text701 = new TextSprite('Congrats! You escaped the dungeon!', '30px', 60, 180);
+
 let enemies = [];
 let traps = [];
 let walls = [wall101];
@@ -477,8 +479,9 @@ let level3 = new Level('level 3', [enemy301, enemy302], [trap301], [wall301, wal
 let level4 = new Level('level 4', [enemy401, enemy402, enemy403, enemy404, enemy405], [trap401], [wall401, wall402, wall403, wall404, wall405, wall406, wall407, wall408, wall409, wall4010, wall4011, wall4012, wall4013, wall4014, wall4015, wall4016, wall4017, wall4018, wall4019, wall1013, wall1014, wall1015], [], {x: 290, y: 200}, {x: 290, y: -680});
 let level5 = new Level('level 5', [enemy501, enemy502, enemy503, enemy504], [trap501, trap502, trap503, trap504, trap505], [wall501, wall502, wall503, wall504, wall505, wall506, wall507, wall508, wall509, wall5010, wall5011, wall5012, wall5013, wall5014, wall1013, wall1014, wall1015], [], {x: 290, y: 350}, {x: 650, y: -430});
 let level6 = new Level('level 6', [enemy601, enemy602, enemy603, enemy604, enemy605, enemy606, enemy607, enemy608, enemy609], [trap601, trap602, trap603, trap604], [wall601, wall602, wall603, wall604, wall605, wall606, wall607, wall608, wall609, wall6010, wall6011, wall6012, wall6013, wall6014, wall6015, wall6016, wall6017, wall6018, wall1013, wall1014, wall1015], [], {x: 290, y: 350}, {x: 650, y: -430});
+let level7 = new Level('End of Game', [], [], [], [text701], {x: 290, y: 350}, {x: 100000000, y: -100000});
 
-let levels = [level1, level2, level3, level4, level5, level6];
+let levels = [level1, level2, level3, level4, level5, level6, level7];
 
 levels[level].load();
 
@@ -495,7 +498,15 @@ function mainLoop()
 {
     // Create the background
     c.clearRect(0, 0, canvas.width, canvas.height);
-    c.fillStyle = 'rgb(10, 10, 10)';
+    
+    if(level <= 5)
+    {
+        c.fillStyle = 'rgb(10, 10, 10)';
+    }
+    else
+    {
+        c.fillStyle = 'rgb(20, 200, 50)';
+    }
     c.fillRect(0, 0, canvas.width, canvas.height);
 
     player.update();
@@ -585,22 +596,22 @@ function mainLoop()
             if(/* DON'T TOUCH THIS PART, YOU MAY DESTROY THE GAME*/i >= 0 && rectangularCollision(bullets[i].posX, theEnemy.posX, bullets[i].posY, theEnemy.posY, bullets[i].width, theEnemy.width, bullets[i].height, theEnemy.height) && enemies[j].alive)
             {
                 // Increase the enemies size
-                theEnemy.width += 10;
-                theEnemy.height += 10;
+                theEnemy.width += 20;
+                theEnemy.height += 20;
 
                 if(theEnemy.image != null)
                 {
-                    theEnemy.image.width += 10;
-                    theEnemy.image.height += 10;
+                    theEnemy.image.width += 20;
+                    theEnemy.image.height += 20;
                 }
 
-                theEnemy.posX -= 5;
-                theEnemy.posY -= 5;
+                theEnemy.posX -= 10;
+                theEnemy.posY -= 10;
 
                 // Decrease the enemies speed
-                if(enemies[j].slow + .4 <= 1.8)
+                if(enemies[j].slow + .8 <= 2.2)
                 {
-                    enemies[j].slow += .4;
+                    enemies[j].slow += .8;
                 }
                 
                 // Destroy the bullet
@@ -615,16 +626,16 @@ function mainLoop()
             if(/* DON'T TOUCH THIS PART, YOU MAY DESTROY THE GAME*/i >= 0 && rectangularCollision(bullets[i].posX, walls[j].posX, bullets[i].posY, walls[j].posY, bullets[i].width, walls[j].width, bullets[i].height, walls[j].height))
             {
                 // Increase the wall's size
-                walls[j].width += 10;
-                walls[j].height += 10;
+                walls[j].width += 20;
+                walls[j].height += 20;
 
                 if(walls[j].image != null)
                 {
-                    walls[j].image.width += 10;
-                    walls[j].image.height += 10;
+                    walls[j].image.width += 20;
+                    walls[j].image.height += 20;
                 }
-                walls[j].posX -= 5;
-                walls[j].posY -= 5;
+                walls[j].posX -= 10;
+                walls[j].posY -= 10;
 
                 destroyObject(bullets, bullets[i].name);
                 i--;
@@ -637,17 +648,17 @@ function mainLoop()
             if(/* DON'T TOUCH THIS PART, YOU MAY DESTROY THE GAME*/i >= 0 && rectangularCollision(bullets[i].posX, traps[j].posX, bullets[i].posY, traps[j].posY, bullets[i].width, traps[j].width, bullets[i].height, traps[j].height))
             {
                 // Increase the trap's size
-                traps[j].width += 10;
-                traps[j].height += 10;
+                traps[j].width += 20;
+                traps[j].height += 20;
 
                 if(traps[j].image != null)
                 {
-                    traps[j].image.width += 10;
-                    traps[j].image.height += 10;
+                    traps[j].image.width += 20;
+                    traps[j].image.height += 20;
                 }
 
-                traps[j].posX -= 5;
-                traps[j].posY -= 5;
+                traps[j].posX -= 10;
+                traps[j].posY -= 10;
     
                 destroyObject(bullets, bullets[i].name);
                 i--;
