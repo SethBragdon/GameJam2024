@@ -10,7 +10,7 @@ let c = canvas. getContext('2d');
 canvas.width = 650;
 canvas.height = 576;
 
-c.fillStyle = 'black';
+c.fillStyle = 'rgb(25, 25, 25)';
 c.fillRect(0, 0, canvas.width, canvas.height);
 
 class Sprite
@@ -301,6 +301,10 @@ let wall303 = new Sprite(0, 0, 40, 250, 0, 0, 'wallVertical.png');
 let wall304 = new Sprite(0, 250, 40, 250, 0, 0, 'wallVertical.png');
 let wall305 = new Sprite(0, -250, 40, 250, 0, 0, 'wallVertical.png');
 let wall306 = new Sprite(610, -250, 40, 250, 0, 0, 'wallVertical.png');
+let wall307 = new Sprite(0, -500, 40, 250, 0, 0, 'wallVertical.png');
+let wall308 = new Sprite(610, -500, 40, 250, 0, 0, 'wallVertical.png');
+let wall309 = new Sprite(0, -500, 250, 40, 0, 0, 'wallSideways.png');
+let wall3010 = new Sprite(400, -500, 250, 40, 0, 0, 'wallSideways.png');
 
 let text101 = new TextSprite('WASD to move.', '30px', 220, 100);
 let text102 = new TextSprite('J: shoot forwards. K: shoot backwards.', '30px', 60, -100);
@@ -377,7 +381,7 @@ let level = 0;
 
 let level1 = new Level('level 1', [], [], [wall101, wall102, wall103, wall104, wall105, wall106, wall107, wall108, wall109, wall1010, wall1011, wall1012, wall1013, wall1014, wall1015], [text101, text102, text103], {x: 290, y: 200}, {x: 290, y: -500});
 let level2 = new Level('level 2', [enemy201], [], [wall201, wall202, wall203, wall204, wall205, wall206, wall207, wall208, wall209, wall2010, wall2011, wall2012, wall2013, wall2014, wall2015, wall2016, wall1013, wall1014, wall1015], [text201, text202], {x: 290, y: 200}, {x: 290, y: -1000});
-let level3 = new Level('level 3', [enemy301, enemy302], [trap301], [wall301, wall302, wall303, wall304, wall305, wall306, wall1013, wall1014, wall1015], [text301, text302, text303], {x: 290, y: 200}, {x: 290, y: -1000});
+let level3 = new Level('level 3', [enemy301, enemy302], [trap301], [wall301, wall302, wall303, wall304, wall305, wall306, wall307, wall308, wall309, wall3010, wall1013, wall1014, wall1015], [text301, text302, text303], {x: 290, y: 200}, {x: 290, y: -500});
 
 let levels = [level1, level2, level3];
 
@@ -396,7 +400,7 @@ function mainLoop()
 {
     // Create the background
     c.clearRect(0, 0, canvas.width, canvas.height);
-    c.fillStyle = 'black';
+    c.fillStyle = 'rgb(10, 10, 10)';
     c.fillRect(0, 0, canvas.width, canvas.height);
 
     player.update();
@@ -466,7 +470,7 @@ function mainLoop()
             enemies[i].active = true;
         }
 
-        if(rectangularCollision(player.posX, theEnemy.posX, player.posY, theEnemy.posY, player.width, theEnemy.width, player.height, theEnemy.height))
+        if(rectangularCollision(player.posX, theEnemy.posX, player.posY, theEnemy.posY, player.width, theEnemy.width, player.height, theEnemy.height) && enemies[i].alive)
         {
             // Code to be triggered when the enemy hits the player
             levels[level].load();
