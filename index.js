@@ -276,22 +276,22 @@ let wall1013 = new Sprite(0, 460, 250, 40, 0, 0, 'wallSideways.png');
 let wall1014 = new Sprite(400, 460, 250, 40, 0, 0, 'wallSideways.png');
 let wall1015 = new Sprite(250, 460, 250, 40, 0, 0, 'wallSideways.png');
 
-let wall201 = new Sprite(610, 0, 40, 250, 0, 0);
+let wall201 = new Sprite(610, 0, 40, 250, 0, 0, 'wallVertical.png');
 let wall202 = new Sprite(610, 250, 40, 250, 0, 0);
-let wall203 = new Sprite(0, 0, 40, 250, 0, 0);
-let wall204 = new Sprite(0, 250, 40, 250, 0, 0);
+let wall203 = new Sprite(0, 0, 40, 250, 0, 0, 'wallVertical.png');
+let wall204 = new Sprite(0, 250, 40, 250, 0, 0, 'wallVertical.png');
 let wall205 = new Sprite(400, -500, 250, 40, 0, 0);
-let wall206 = new Sprite(610, -500, 40, 250, 0, 0);
-let wall207 = new Sprite(610, -250, 40, 250, 0, 0);
+let wall206 = new Sprite(610, -500, 40, 250, 0, 0, 'wallVertical.png');
+let wall207 = new Sprite(610, -250, 40, 250, 0, 0, 'wallVertical.png');
 let wall208 = new Sprite(0, -500, 250, 40, 0, 0);
-let wall209 = new Sprite(0, -500, 40, 250, 0, 0);
-let wall2010 = new Sprite(0, -250, 40, 250, 0, 0);
+let wall209 = new Sprite(0, -500, 40, 250, 0, 0, 'wallVertical.png');
+let wall2010 = new Sprite(0, -250, 40, 250, 0, 0, 'wallVertical.png');
 let wall2011 = new Sprite(400, -1000, 250, 40, 0, 0);
-let wall2012 = new Sprite(610, -1000, 40, 250, 0, 0);
-let wall2013 = new Sprite(610, -750, 40, 250, 0, 0);
+let wall2012 = new Sprite(610, -1000, 40, 250, 0, 0, 'wallVertical.png');
+let wall2013 = new Sprite(610, -750, 40, 250, 0, 0, 'wallVertical.png');
 let wall2014 = new Sprite(0, -1000, 250, 40, 0, 0);
-let wall2015 = new Sprite(0, -1000, 40, 250, 0, 0);
-let wall2016 = new Sprite(0, -750, 40, 250, 0, 0);
+let wall2015 = new Sprite(0, -1000, 40, 250, 0, 0, 'wallVertical.png');
+let wall2016 = new Sprite(0, -750, 40, 250, 0, 0, 'wallVertical.png');
 
 let trap301 = new Sprite(270, -50, 35, 35, 0, 0);
 
@@ -480,12 +480,12 @@ function mainLoop()
             let theEnemy = enemies[j].sprite;
 
             // If the enemy collides with a bullet...
-            if(rectangularCollision(bullets[i].posX, theEnemy.posX, bullets[i].posY, theEnemy.posY, bullets[i].width, theEnemy.width, bullets[i].height, theEnemy.height))
+            if(/* DON'T TOUCH THIS PART, YOU MAY DESTROY THE GAME*/i >= 0 && rectangularCollision(bullets[i].posX, theEnemy.posX, bullets[i].posY, theEnemy.posY, bullets[i].width, theEnemy.width, bullets[i].height, theEnemy.height))
             {
                 // Increase the enemies size
                 theEnemy.width += 10;
                 theEnemy.height += 10;
-                 theEnemy.posX -= 5;
+                theEnemy.posX -= 5;
                 theEnemy.posY -= 5;
 
                 // Decrease the enemies speed
@@ -497,7 +497,6 @@ function mainLoop()
                 // Destroy the bullet
                 destroyObject(bullets, bullets[i].name);
                 i--;
-                alert(bullets.length);
             }
         }
 
