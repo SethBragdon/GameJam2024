@@ -78,8 +78,7 @@ class Sprite
     {
         if(this.hasImage)
         {
-            c.drawImage(this.image, this.posX + this.xOffset, this.posY + this.yOffset);
-            alert(this.image.height);
+            c.drawImage(this.image, this.posX + this.xOffset, this.posY + this.yOffset, this.image.width, this.image.height);
         }
         else
         {
@@ -103,6 +102,12 @@ class Sprite
         this.posY = this.originY;
         this.height = this.originHeight;
         this.width = this.originWidth;
+
+        if(this.image != null)
+        {
+            this.image.width = this.originWidth;
+            this.image.height = this.originHeight;
+        }
         this.xSpeed = 0;
         this.ySpeed = 0;
     }
@@ -119,6 +124,7 @@ class Enemy
         this.slow = .2;
         this.active = false;
         this.alive = true;
+        this.image = 'null';
     }
 
     draw()
@@ -254,21 +260,21 @@ let enemy201 = new Enemy(90, -400, 35, 35, 2, 2, null, 'enemy201');
 let enemy301 = new Enemy(90, -400, 35, 35, 2, 2, null, 'enemy301');
 let enemy302 = new Enemy(470, -400, 35, 35, 2, 2, null, 'enemy302');
 
-let wall101 = new Sprite(400, 0, 250, 40, 0, 0);
-let wall102 = new Sprite(610, 0, 40, 250, 0, 0);
-let wall103 = new Sprite(610, 250, 40, 250, 0, 0);
-let wall104 = new Sprite(0, 0, 250, 40, 0, 0);
-let wall105 = new Sprite(0, 0, 40, 250, 0, 0);
-let wall106 = new Sprite(0, 250, 40, 250, 0, 0);
-let wall107 = new Sprite(400, -500, 250, 40, 0, 0);
-let wall108 = new Sprite(610, -500, 40, 250, 0, 0);
-let wall109 = new Sprite(610, -250, 40, 250, 0, 0);
-let wall1010 = new Sprite(0, -500, 250, 40, 0, 0);
-let wall1011 = new Sprite(0, -500, 40, 250, 0, 0);
-let wall1012 = new Sprite(0, -250, 40, 250, 0, 0);
-let wall1013 = new Sprite(0, 460, 250, 40, 0, 0);
-let wall1014 = new Sprite(400, 460, 250, 40, 0, 0);
-let wall1015 = new Sprite(250, 460, 250, 40, 0, 0);
+let wall101 = new Sprite(400, 0, 250, 40, 0, 0, 'wallSideways.png');
+let wall102 = new Sprite(610, 0, 40, 250, 0, 0, 'wallVertical.png');
+let wall103 = new Sprite(610, 250, 40, 250, 0, 0, 'wallVertical.png');
+let wall104 = new Sprite(0, 0, 250, 40, 0, 0, 'wallSideways.png');
+let wall105 = new Sprite(0, 0, 40, 250, 0, 0, 'wallVertical.png');
+let wall106 = new Sprite(0, 250, 40, 250, 0, 0, 'wallVertical.png');
+let wall107 = new Sprite(400, -500, 250, 40, 0, 0, 'wallSideways.png');
+let wall108 = new Sprite(610, -500, 40, 250, 0, 0, 'wallVertical.png');
+let wall109 = new Sprite(610, -250, 40, 250, 0, 0, 'wallVertical.png');
+let wall1010 = new Sprite(0, -500, 250, 40, 0, 0, 'wallSideways.png');
+let wall1011 = new Sprite(0, -500, 40, 250, 0, 0, 'wallVertical.png');
+let wall1012 = new Sprite(0, -250, 40, 250, 0, 0, 'wallVertical.png');
+let wall1013 = new Sprite(0, 460, 250, 40, 0, 0, 'wallSideways.png');
+let wall1014 = new Sprite(400, 460, 250, 40, 0, 0, 'wallSideways.png');
+let wall1015 = new Sprite(250, 460, 250, 40, 0, 0, 'wallSideways.png');
 
 let wall201 = new Sprite(610, 0, 40, 250, 0, 0);
 let wall202 = new Sprite(610, 250, 40, 250, 0, 0);
@@ -487,10 +493,11 @@ function mainLoop()
                 {
                     enemies[j].slow += .4;
                 }
-
+                
                 // Destroy the bullet
                 destroyObject(bullets, bullets[i].name);
                 i--;
+                alert(bullets.length);
             }
         }
 
@@ -502,6 +509,12 @@ function mainLoop()
                 // Increase the wall's size
                 walls[j].width += 10;
                 walls[j].height += 10;
+
+                if(walls[j].image != null)
+                {
+                    walls[j].image.width += 10;
+                    walls[j].image.height += 10;
+                }
                 walls[j].posX -= 5;
                 walls[j].posY -= 5;
 
