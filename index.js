@@ -205,7 +205,7 @@ let bulletCount = 0;
 function shoot(modifier = 1)
 {
     bulletCount++;
-    let bullet = new Sprite(player.posX + player.width/2 - 10, player.posY + player.height/2 - 10, 20, 20, lastDirectionX * 2 * modifier, lastDirectionY * 2 * modifier, null, 'bullet' + bulletCount);
+    let bullet = new Sprite(player.posX + player.width/2 - 10, player.posY + player.height/2 - 10, 20, 20, lastDirectionX * 2 * modifier, lastDirectionY * 2 * modifier, 'bullet.png', 'bullet' + bulletCount);
     bullets.push(bullet);
 
     // Destroy the bullet after .5 seconds so it doesn't lag the game
@@ -251,7 +251,7 @@ function scroll(distanceX, distanceY)
     goal.posY += distanceY;
 }
 
-let player = new Sprite(250, 200, 35, 35, 0, 0);
+let player = new Sprite(250, 200, 35, 35, 0, 0, 'player.png');
 
 let goal = new Sprite(200, 0, 80, 80, 0, 0, 'stairs.png');
 
