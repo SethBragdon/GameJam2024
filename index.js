@@ -277,30 +277,30 @@ let wall1014 = new Sprite(400, 460, 250, 40, 0, 0, 'wallSideways.png');
 let wall1015 = new Sprite(250, 460, 250, 40, 0, 0, 'wallSideways.png');
 
 let wall201 = new Sprite(610, 0, 40, 250, 0, 0, 'wallVertical.png');
-let wall202 = new Sprite(610, 250, 40, 250, 0, 0);
+let wall202 = new Sprite(610, 250, 40, 250, 0, 0, 'wallVertical.png');
 let wall203 = new Sprite(0, 0, 40, 250, 0, 0, 'wallVertical.png');
 let wall204 = new Sprite(0, 250, 40, 250, 0, 0, 'wallVertical.png');
-let wall205 = new Sprite(400, -500, 250, 40, 0, 0);
+let wall205 = new Sprite(400, -500, 250, 40, 0, 0, 'wallSideways.png');
 let wall206 = new Sprite(610, -500, 40, 250, 0, 0, 'wallVertical.png');
 let wall207 = new Sprite(610, -250, 40, 250, 0, 0, 'wallVertical.png');
-let wall208 = new Sprite(0, -500, 250, 40, 0, 0);
+let wall208 = new Sprite(0, -500, 250, 40, 0, 0, 'wallSideways.png');
 let wall209 = new Sprite(0, -500, 40, 250, 0, 0, 'wallVertical.png');
 let wall2010 = new Sprite(0, -250, 40, 250, 0, 0, 'wallVertical.png');
-let wall2011 = new Sprite(400, -1000, 250, 40, 0, 0);
+let wall2011 = new Sprite(400, -1000, 250, 40, 0, 0, 'wallSideways.png');
 let wall2012 = new Sprite(610, -1000, 40, 250, 0, 0, 'wallVertical.png');
 let wall2013 = new Sprite(610, -750, 40, 250, 0, 0, 'wallVertical.png');
-let wall2014 = new Sprite(0, -1000, 250, 40, 0, 0);
+let wall2014 = new Sprite(0, -1000, 250, 40, 0, 0, 'wallSideways.png');
 let wall2015 = new Sprite(0, -1000, 40, 250, 0, 0, 'wallVertical.png');
 let wall2016 = new Sprite(0, -750, 40, 250, 0, 0, 'wallVertical.png');
 
 let trap301 = new Sprite(270, -50, 35, 35, 0, 0);
 
-let wall301 = new Sprite(610, 0, 40, 250, 0, 0);
-let wall302 = new Sprite(610, 250, 40, 250, 0, 0);
-let wall303 = new Sprite(0, 0, 40, 250, 0, 0);
-let wall304 = new Sprite(0, 250, 40, 250, 0, 0);
-let wall305 = new Sprite(0, -250, 40, 250, 0, 0);
-let wall306 = new Sprite(610, -250, 40, 250, 0, 0);
+let wall301 = new Sprite(610, 0, 40, 250, 0, 0, 'wallVertical.png');
+let wall302 = new Sprite(610, 250, 40, 250, 0, 0, 'wallVertical.png');
+let wall303 = new Sprite(0, 0, 40, 250, 0, 0, 'wallVertical.png');
+let wall304 = new Sprite(0, 250, 40, 250, 0, 0, 'wallVertical.png');
+let wall305 = new Sprite(0, -250, 40, 250, 0, 0, 'wallVertical.png');
+let wall306 = new Sprite(610, -250, 40, 250, 0, 0, 'wallVertical.png');
 
 let text101 = new TextSprite('WASD to move.', '30px', 220, 100);
 let text102 = new TextSprite('J: shoot forwards. K: shoot backwards.', '30px', 60, -100);
