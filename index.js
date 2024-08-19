@@ -255,10 +255,10 @@ let player = new Sprite(250, 200, 35, 35, 0, 0, 'player.png');
 
 let goal = new Sprite(200, 0, 80, 80, 0, 0, 'stairs.png');
 
-let enemy201 = new Enemy(90, -400, 35, 35, 2, 2, null, 'enemy201');
+let enemy201 = new Enemy(90, -400, 35, 35, 2, 2, 'slime.png', 'enemy201');
 
-let enemy301 = new Enemy(90, -400, 35, 35, 2, 2, null, 'enemy301');
-let enemy302 = new Enemy(470, -400, 35, 35, 2, 2, null, 'enemy302');
+let enemy301 = new Enemy(90, -400, 35, 35, 2, 2, 'slime.png', 'enemy301');
+let enemy302 = new Enemy(470, -400, 35, 35, 2, 2, 'slime.png', 'enemy302');
 
 let wall101 = new Sprite(400, 0, 250, 40, 0, 0, 'wallSideways.png');
 let wall102 = new Sprite(610, 0, 40, 250, 0, 0, 'wallVertical.png');
@@ -427,11 +427,14 @@ function mainLoop()
         {
             let theEnemy = enemies[j].sprite;
 
-            if(rectangularCollision(theEnemy.posX, traps[i].posX, theEnemy.posY, traps[i].posY, theEnemy.width, traps[i].width, theEnemy.height, traps[i].height))
+            if(rectangularCollision(theEnemy.posX, traps[i].posX, theEnemy.posY, traps[i].posY, theEnemy.width, traps[i].width, theEnemy.height, traps[i].height) && enemies[j].active)
             {
                 // Code to be triggered when the trap hits the player
-                enemies[j].active = false;
-                enemies[j].alive = false;
+                
+                window.setTimeout(() => {enemies[j].active = false; enemies[j].alive = false;}, 500);
+
+                theEnemy.animate([ {image: 'slime-hurt.png', x: 0, y: 0, width: theEnemy.width, height: theEnemy.height}, {image: 'slime.png', x: 0, y: 0, width: theEnemy.width, height: theEnemy.height}], 250);
+
             }
         }
     }
@@ -485,6 +488,13 @@ function mainLoop()
                 // Increase the enemies size
                 theEnemy.width += 10;
                 theEnemy.height += 10;
+
+                if(theEnemy.image != null)
+                {
+                    theEnemy.image.width += 10;
+                    theEnemy.image.height += 10;
+                }
+
                 theEnemy.posX -= 5;
                 theEnemy.posY -= 5;
 
@@ -667,16 +677,26 @@ window.addEventListener('keydown', (event) =>
         case 'j':
             if(canShootFront)
             {
-                canShootFront = false;
-                shoot();
+                if(player.state == 'ready')
+                {
+                    canShootFront = false;
+                    player.animate([ {image: 'player-shoot.png', x: 0, y: 0, width: 35, height: 35}, {image: 'player.png', x: 0, y: 0, width: 35, height: 35}], 200);
+                    player.state = 'shooting';
+                    shoot();
+                }
             }
             break;
         
         case 'k':
             if(canShootBack)
             {
-                canShootBack = false;
-                shoot(-1);
+                if(player.state == 'ready')
+                {
+                    canShootBack = false;
+                    player.animate([ {image: 'player-shoot.png', x: 0, y: 0, width: 35, height: 35}, {image: 'player.png', x: 0, y: 0, width: 35, height: 35}], 200);
+                    player.state = 'shooting';
+                    shoot(-1);
+                }
             }
             break;
         
