@@ -84,6 +84,8 @@ class Sprite
         {
             c.fillStyle = 'green';
             c.fillRect(this.posX, this.posY, this.width, this.height);
+         
+            
         }
         
     }
@@ -251,7 +253,8 @@ function scroll(distanceX, distanceY)
     goal.posY += distanceY;
 }
 
-let player = new Sprite(250, 200, 35, 35, 0, 0);
+let player = new Sprite(250, 200, 35, 35, 0, 0, 'player.png');
+
 
 let goal = new Sprite(200, 0, 80, 80, 0, 0);
 
@@ -569,6 +572,8 @@ function mainLoop()
         player.ySpeed = -4;
         lastDirectionY = -4
 
+        player.rotation = 90; 
+
         if(!keys.a || !keys.d)
         {
             lastDirectionX = 0;
@@ -578,6 +583,9 @@ function mainLoop()
     {
         player.ySpeed = 4;
         lastDirectionY = 4;
+
+   
+      
 
         if(!keys.a || !keys.d)
         {
