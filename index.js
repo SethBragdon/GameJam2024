@@ -266,6 +266,11 @@ let enemy403 = new Enemy(300, -450, 35, 35, 2, 2, 'slime.png', 'enemy403');
 let enemy404 = new Enemy(400, -450, 35, 35, 2, 2, 'slime.png', 'enemy404');
 let enemy405 = new Enemy(500, -350, 35, 35, 2, 2, 'slime.png', 'enemy405');
 
+let enemy501 = new Enemy(-50, -100, 35, 35, 2, 2, 'slime.png', 'enemy501');
+let enemy502 = new Enemy(-50, -150, 35, 35, 2, 2, 'slime.png', 'enemy502');
+let enemy503 = new Enemy(700, -100, 35, 35, 2, 2, 'slime.png', 'enemy503');
+let enemy504 = new Enemy(700, -150, 35, 35, 2, 2, 'slime.png', 'enemy504');
+
 let wall101 = new Sprite(400, 0, 250, 40, 0, 0, 'wallSideways.png');
 let wall102 = new Sprite(610, 0, 40, 250, 0, 0, 'wallVertical.png');
 let wall103 = new Sprite(610, 250, 40, 250, 0, 0, 'wallVertical.png');
@@ -304,6 +309,12 @@ let trap301 = new Sprite(270, -50, 35, 35, 0, 0, 'spikes.png');
 
 let trap401 = new Sprite(320, -200, 35, 35, 0, 0, 'spikes.png');
 
+let trap501 = new Sprite(120, 300, 35, 35, 0, 0, 'spikes.png');
+let trap502 = new Sprite(450, 300, 35, 35, 0, 0, 'spikes.png');
+let trap503 = new Sprite(280, 50, 35, 35, 0, 0, 'spikes.png');
+let trap504 = new Sprite(120, -200, 35, 35, 0, 0, 'spikes.png');
+let trap505 = new Sprite(450, -200, 35, 35, 0, 0, 'spikes.png');
+
 let wall301 = new Sprite(610, 0, 40, 250, 0, 0, 'wallVertical.png');
 let wall302 = new Sprite(610, 250, 40, 250, 0, 0, 'wallVertical.png');
 let wall303 = new Sprite(0, 0, 40, 250, 0, 0, 'wallVertical.png');
@@ -335,6 +346,30 @@ let wall4017 = new Sprite(70, -750, 250, 40, 0, 0, 'wallSideways.png');
 let wall4018 = new Sprite(30, -750, 40, 250, 0, 0, 'wallVertical.png');
 let wall4019 = new Sprite(30, -500, 40, 250, 0, 0, 'wallVertical.png');
 
+let wall501 = new Sprite(610, 0, 40, 250, 0, 0, 'wallVertical.png');
+let wall502 = new Sprite(610, 250, 40, 250, 0, 0, 'wallVertical.png');
+let wall503 = new Sprite(0, 0, 40, 250, 0, 0, 'wallVertical.png');
+let wall504 = new Sprite(0, 250, 40, 250, 0, 0, 'wallVertical.png');
+let wall505 = new Sprite(-250, 0, 250, 40, 0, 0, 'wallSideways.png');
+let wall506 = new Sprite(650, 0, 250, 40, 0, 0, 'wallSideways.png');
+let wall507 = new Sprite(-250, -250, 40, 250, 0, 0, 'wallVertical.png');
+let wall508 = new Sprite(860, -250, 40, 250, 0, 0, 'wallVertical.png');
+let wall509 = new Sprite(860, -500, 40, 250, 0, 0, 'wallVertical.png');
+let wall5010 = new Sprite(-210, -250, 250, 40, 0, 0, 'wallSideways.png');
+let wall5011 = new Sprite(610, -500, 250, 40, 0, 0, 'wallSideways.png');
+let wall5012 = new Sprite(320, -290, 250, 40, 0, 0, 'wallSideways.png');
+let wall5013 = new Sprite(70, -290, 250, 40, 0, 0, 'wallSideways.png');
+let wall5014 = new Sprite(570, -500, 40, 250, 0, 0, 'wallVertical.png');
+
+let wall601 = new Sprite(610, 250, 40, 250, 0, 0, 'wallVertical.png');
+let wall602 = new Sprite(0, 250, 40, 250, 0, 0, 'wallVertical.png');
+let wall603 = new Sprite(-250, 250, 250, 40, 0, 0, 'wallSideways.png');
+let wall604 = new Sprite(650, 250, 250, 40, 0, 0, 'wallSideways.png');
+let wall605 = new Sprite(200, 250, 250, 40, 0, 0, 'wallSideways.png');
+let wall606 = new Sprite(860, 0, 40, 250, 0, 0, 'wallVertical.png');
+let wall607 = new Sprite(-250, 0, 40, 250, 0, 0, 'wallVertical.png');
+
+// TEXT SPRITES
 let text100 = new TextSprite('R to reset.', '30px', 220, 140);
 let text101 = new TextSprite('WASD to move.', '30px', 220, 100);
 let text102 = new TextSprite('J: shoot forwards. K: shoot backwards.', '30px', 60, -100);
@@ -413,8 +448,10 @@ let level1 = new Level('level 1', [], [], [wall101, wall102, wall103, wall104, w
 let level2 = new Level('level 2', [enemy201], [], [wall201, wall202, wall203, wall204, wall205, wall206, wall207, wall208, wall209, wall2010, wall2011, wall2012, wall2013, wall2014, wall2015, wall2016, wall1013, wall1014, wall1015], [text201, text202], {x: 290, y: 200}, {x: 290, y: -1000});
 let level3 = new Level('level 3', [enemy301, enemy302], [trap301], [wall301, wall302, wall303, wall304, wall305, wall306, wall307, wall308, wall309, wall3010, wall1013, wall1014, wall1015], [text301, text302, text303], {x: 290, y: 200}, {x: 290, y: -500});
 let level4 = new Level('level 4', [enemy401, enemy402, enemy403, enemy404, enemy405], [trap401], [wall401, wall402, wall403, wall404, wall405, wall406, wall407, wall408, wall409, wall4010, wall4011, wall4012, wall4013, wall4014, wall4015, wall4016, wall4017, wall4018, wall4019, wall1013, wall1014, wall1015], [], {x: 290, y: 200}, {x: 290, y: -680});
+let level5 = new Level('level 5', [enemy501, enemy502, enemy503, enemy504], [trap501, trap502, trap503, trap504, trap505], [wall501, wall502, wall503, wall504, wall505, wall506, wall507, wall508, wall509, wall5010, wall5011, wall5012, wall5013, wall5014, wall1013, wall1014, wall1015], [], {x: 290, y: 350}, {x: 650, y: -430});
+let level6 = new Level('level 6', [], [], [wall601, wall602, wall603, wall604, wall605, wall606, wall607, wall1013, wall1014, wall1015], [], {x: 290, y: 350}, {x: 650, y: -430});
 
-let levels = [level1, level2, level3, level4];
+let levels = [level1, level2, level3, level4, level5, level6];
 
 levels[level].load();
 
