@@ -253,7 +253,7 @@ function scroll(distanceX, distanceY)
 
 let player = new Sprite(250, 200, 35, 35, 0, 0);
 
-let goal = new Sprite(200, 0, 80, 80, 0, 0);
+let goal = new Sprite(200, 0, 80, 80, 0, 0, 'stairs.png');
 
 let enemy201 = new Enemy(90, -400, 35, 35, 2, 2, null, 'enemy201');
 
@@ -293,7 +293,7 @@ let wall2014 = new Sprite(0, -1000, 250, 40, 0, 0, 'wallSideways.png');
 let wall2015 = new Sprite(0, -1000, 40, 250, 0, 0, 'wallVertical.png');
 let wall2016 = new Sprite(0, -750, 40, 250, 0, 0, 'wallVertical.png');
 
-let trap301 = new Sprite(270, -50, 35, 35, 0, 0);
+let trap301 = new Sprite(270, -50, 35, 35, 0, 0, 'spikes.png');
 
 let wall301 = new Sprite(610, 0, 40, 250, 0, 0, 'wallVertical.png');
 let wall302 = new Sprite(610, 250, 40, 250, 0, 0, 'wallVertical.png');
@@ -530,6 +530,13 @@ function mainLoop()
                 // Increase the trap's size
                 traps[j].width += 10;
                 traps[j].height += 10;
+
+                if(traps[j].image != null)
+                {
+                    traps[j].image.width += 10;
+                    traps[j].image.height += 10;
+                }
+
                 traps[j].posX -= 5;
                 traps[j].posY -= 5;
     
