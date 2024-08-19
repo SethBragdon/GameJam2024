@@ -260,6 +260,12 @@ let enemy201 = new Enemy(90, -400, 35, 35, 2, 2, 'slime.png', 'enemy201');
 let enemy301 = new Enemy(90, -400, 35, 35, 2, 2, 'slime.png', 'enemy301');
 let enemy302 = new Enemy(470, -400, 35, 35, 2, 2, 'slime.png', 'enemy302');
 
+let enemy401 = new Enemy(200, 0, 35, 35, 2, 2, 'slime.png', 'enemy401');
+let enemy402 = new Enemy(200, -350, 35, 35, 2, 2, 'slime.png', 'enemy402');
+let enemy403 = new Enemy(300, -450, 35, 35, 2, 2, 'slime.png', 'enemy403');
+let enemy404 = new Enemy(400, -450, 35, 35, 2, 2, 'slime.png', 'enemy404');
+let enemy405 = new Enemy(500, -350, 35, 35, 2, 2, 'slime.png', 'enemy405');
+
 let wall101 = new Sprite(400, 0, 250, 40, 0, 0, 'wallSideways.png');
 let wall102 = new Sprite(610, 0, 40, 250, 0, 0, 'wallVertical.png');
 let wall103 = new Sprite(610, 250, 40, 250, 0, 0, 'wallVertical.png');
@@ -293,7 +299,10 @@ let wall2014 = new Sprite(0, -1000, 250, 40, 0, 0, 'wallSideways.png');
 let wall2015 = new Sprite(0, -1000, 40, 250, 0, 0, 'wallVertical.png');
 let wall2016 = new Sprite(0, -750, 40, 250, 0, 0, 'wallVertical.png');
 
+// TRAP SPRITES
 let trap301 = new Sprite(270, -50, 35, 35, 0, 0, 'spikes.png');
+
+let trap401 = new Sprite(320, -200, 35, 35, 0, 0, 'spikes.png');
 
 let wall301 = new Sprite(610, 0, 40, 250, 0, 0, 'wallVertical.png');
 let wall302 = new Sprite(610, 250, 40, 250, 0, 0, 'wallVertical.png');
@@ -305,6 +314,26 @@ let wall307 = new Sprite(0, -500, 40, 250, 0, 0, 'wallVertical.png');
 let wall308 = new Sprite(610, -500, 40, 250, 0, 0, 'wallVertical.png');
 let wall309 = new Sprite(0, -500, 250, 40, 0, 0, 'wallSideways.png');
 let wall3010 = new Sprite(400, -500, 250, 40, 0, 0, 'wallSideways.png');
+
+let wall401 = new Sprite(610, 0, 40, 250, 0, 0, 'wallVertical.png');
+let wall402 = new Sprite(610, 250, 40, 250, 0, 0, 'wallVertical.png');
+let wall403 = new Sprite(0, 0, 40, 250, 0, 0, 'wallVertical.png');
+let wall404 = new Sprite(0, 250, 40, 250, 0, 0, 'wallVertical.png');
+let wall405 = new Sprite(0, -250, 40, 250, 0, 0, 'wallVertical.png');
+let wall406 = new Sprite(610, 0, 250, 40, 0, 0, 'wallSideways.png');
+let wall407 = new Sprite(860, 0, 250, 40, 0, 0, 'wallSideways.png');
+let wall408 = new Sprite(1070, -250, 40, 250, 0, 0, 'wallVertical.png');
+let wall409 = new Sprite(0, -250, 250, 40, 0, 0, 'wallSideways.png');
+let wall4010 = new Sprite(400, -250, 250, 40, 0, 0, 'wallSideways.png');
+let wall4011 = new Sprite(1070, -500, 40, 250, 0, 0, 'wallVertical.png');
+let wall4012 = new Sprite(1070, -750, 40, 250, 0, 0, 'wallVertical.png');
+let wall4013 = new Sprite(610, -500, 40, 250, 0, 0, 'wallVertical.png');
+let wall4014 = new Sprite(820, -750, 250, 40, 0, 0, 'wallSideways.png');
+let wall4015 = new Sprite(570, -750, 250, 40, 0, 0, 'wallSideways.png');
+let wall4016 = new Sprite(320, -750, 250, 40, 0, 0, 'wallSideways.png');
+let wall4017 = new Sprite(70, -750, 250, 40, 0, 0, 'wallSideways.png');
+let wall4018 = new Sprite(30, -750, 40, 250, 0, 0, 'wallVertical.png');
+let wall4019 = new Sprite(30, -500, 40, 250, 0, 0, 'wallVertical.png');
 
 let text101 = new TextSprite('WASD to move.', '30px', 220, 100);
 let text102 = new TextSprite('J: shoot forwards. K: shoot backwards.', '30px', 60, -100);
@@ -382,8 +411,9 @@ let level = 0;
 let level1 = new Level('level 1', [], [], [wall101, wall102, wall103, wall104, wall105, wall106, wall107, wall108, wall109, wall1010, wall1011, wall1012, wall1013, wall1014, wall1015], [text101, text102, text103], {x: 290, y: 200}, {x: 290, y: -500});
 let level2 = new Level('level 2', [enemy201], [], [wall201, wall202, wall203, wall204, wall205, wall206, wall207, wall208, wall209, wall2010, wall2011, wall2012, wall2013, wall2014, wall2015, wall2016, wall1013, wall1014, wall1015], [text201, text202], {x: 290, y: 200}, {x: 290, y: -1000});
 let level3 = new Level('level 3', [enemy301, enemy302], [trap301], [wall301, wall302, wall303, wall304, wall305, wall306, wall307, wall308, wall309, wall3010, wall1013, wall1014, wall1015], [text301, text302, text303], {x: 290, y: 200}, {x: 290, y: -500});
+let level4 = new Level('level 4', [enemy401, enemy402, enemy403, enemy404, enemy405], [trap401], [wall401, wall402, wall403, wall404, wall405, wall406, wall407, wall408, wall409, wall4010, wall4011, wall4012, wall4013, wall4014, wall4015, wall4016, wall4017, wall4018, wall4019, wall1013, wall1014, wall1015], [], {x: 290, y: 200}, {x: 290, y: -680});
 
-let levels = [level1, level2, level3];
+let levels = [level1, level2, level3, level4];
 
 levels[level].load();
 
@@ -431,7 +461,7 @@ function mainLoop()
         {
             let theEnemy = enemies[j].sprite;
 
-            if(rectangularCollision(theEnemy.posX, traps[i].posX, theEnemy.posY, traps[i].posY, theEnemy.width, traps[i].width, theEnemy.height, traps[i].height) && enemies[j].active)
+            if(rectangularCollision(theEnemy.posX, traps[i].posX, theEnemy.posY, traps[i].posY, theEnemy.width, traps[i].width, theEnemy.height, traps[i].height) && enemies[j].active && enemies[j].alive)
             {
                 // Code to be triggered when the trap hits the player
                 
